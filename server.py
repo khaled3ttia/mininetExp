@@ -46,9 +46,9 @@ if __name__ == '__main__':
     s.bind(ADDR)
 
     # Wait for a client to connect
-    s.listen() 
+    s.listen(1) 
 
-    print(f"Server is listening on {HOST}:{PORT}")
+    print("Server is listening on %s:%d" % (HOST, PORT))
 
     # A counter to count how many messages were received by the server
     totalReceived = 0
@@ -56,20 +56,20 @@ if __name__ == '__main__':
     while True:
         # accept a connection from a client
         conn, addr = s.accept()
-        print(f"Client {addr[0]}:{addr[1]} connected")
+        print("Client %s:%s connected" % (addr[0], addr[1]))
         connected = True
 
         # Open a file for writing
         with open(outfileName, 'a') as f: 
             while connected :
                 # The first thing to receive is the message length
-                dataLen = conn.recv(HEADER).decode('utf-8')
+                dataLen = conn.recv(HEADER)
                 if dataLen :
                     dataLen = int(dataLen)
 
                     # Then receive the actual message
-                    msg = conn.recv(dataLen).decode('utf-8')
-                    print(f"[{addr[0]}:{addr[1]}] {msg}")
+                    msg = conn.recv(dataLen)
+		    print("[%s:%s] %s" %(addr[0], addr[1], msg))
 
                     # If the client sent a FIN message, close the
                     # client socket
@@ -79,7 +79,7 @@ if __name__ == '__main__':
                     # Otherwise, increment the count of received messages
                         totalReceived += 1 
                     # Send an ACK to the client
-                        conn.sendall(bytes(f"ACK[{totalReceived}]", 'utf-8'))
+                        conn.sendall(bytes("ACK[%d]"%totalReceived))
                     # And write the message to output.txt
                         f.write(msg)
                         f.write('\n')

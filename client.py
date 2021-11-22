@@ -6,8 +6,8 @@ import sys # for the command line arguments
 # number of argument
 def usage():
     print("Insufficient number of arguments")
-    print(f"{sys.argv[0]} Usage:");
-    print(f"{sys.argv[0]} <server_ip> <server_port>");
+    print("%s Usage:" % sys.argv[0])
+    print("%s <server_ip> <server_port" % sys.argv[0])
     exit()
 
 
@@ -23,10 +23,10 @@ def send(msg):
     #       2- The actual message (of the specified length)
     
     # all socket send and receive expect bytes, so encode it 
-    message = msg.encode('utf-8')
+    message = msg
 
     # find the length of the message and convert it to a string
-    messageLenStr = str(len(message)).encode('utf-8')
+    messageLenStr = str(len(message))
 
     # if the string representing the length of the message is 
     # smaller than the specified header size (32 bytes), add 
@@ -44,7 +44,7 @@ def send(msg):
 
     # if we get a valid ACK , print it 
     if reply:
-        print(reply.decode('utf-8'))
+        print(reply)
 
 if __name__ == '__main__':
     
