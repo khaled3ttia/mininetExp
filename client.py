@@ -10,12 +10,15 @@ def usage():
     print("%s <server_ip> <server_port" % sys.argv[0])
     exit()
 
-
+# Function to read a file and store it in a list
+#	return: lines => list of strings, each string 
+#			corresponds to a line of the file
 def readFile(filename):
     lines = []
     with open(filename, 'r') as f:
         lines = f.readlines()
     return lines
+
 
 def send(msg):
     # for each message, we send two messages:
