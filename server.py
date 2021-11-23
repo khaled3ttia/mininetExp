@@ -3,7 +3,7 @@ import sys
 
 if __name__ == '__main__':
     # Host IP address is my ip address
-    HOST = socket.gethostbyname(socket.gethostname())
+    HOST = '0.0.0.0'
 
     # If the user has provided a port number, use it 
     # otherwise, use a default port number of 2048
