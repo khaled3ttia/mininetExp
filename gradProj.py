@@ -79,7 +79,12 @@ class projectTopo(Topo):
 
 		    # I defined the possibilty of introducing link parameters as 25%
                     if (random.random() < 0.25):
-                        self.addLink(switches[i], switches[potentialNeighbor], loss=random.choice(sampleLoss), delay=random.choice(sampleDelays), bw=random.choice(sampleBW))
+			chosenBW = random.choice(sampleBW)
+			chosenDelay = random.choice(sampleDelays)
+			chosenLoss = random.choice(sampleLoss)
+			
+                        self.addLink(switches[i], switches[potentialNeighbor], loss=chosenLoss, delay=chosenDelay, bw=chosenBW)
+			info('Link (%d,%d) has bw=%d, delay=%s, loss=%d\n'%(i, potentialNeighbor, chosenBW, chosenDelay, chosenLoss))
                     else:
                         self.addLink(switches[i], switches[potentialNeighbor])
                     links.append(potentialLink)
